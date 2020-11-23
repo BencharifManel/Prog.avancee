@@ -31,14 +31,15 @@ int main(int argc, char** argv){
   //////////////////////////////////////////////////////////////// SDL2
 
     // Déclaration de la fenêtre
-    SDL_Window* window;
+    SDL_Window* window = NULL;
     // Événements liés à la fenêtre
-    SDL_Event evenements;
+    SDL_Event evenements ;
     // Le renderer
-    SDL_Renderer* renderer;
-    //SDL_Surface* surface;
-    //SDL_Rect des_rect ={0,0,640,480};
+    SDL_Renderer* renderer = NULL ;
+    SDL_Surface* picture;
+    SDL_Rect des_rect ={0,0,640,480};
     bool terminer = false;
+    SDL_Texture *texture =NULL;
 
     // Initialisation de la SDL
   if(SDL_Init(SDL_INIT_VIDEO) < 0){
@@ -62,8 +63,6 @@ int main(int argc, char** argv){
     /*****************************************************************/
     // Mettre en place un contexte de rendu de l’écran
     renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_ACCELERATED);
-    // Charger l’image
-        SDL_Texture* texture = charger_image("pavage.bmp", renderer );
 
     // En cas d’erreur
     if(renderer == NULL){
@@ -73,14 +72,44 @@ int main(int argc, char** argv){
     }
 
 
+    // Charger l’image
+      picture = SDL_LoadBMP("pavage.bmp");
+      if(picture == NULL){
+        printf("Erreur au niveau de l'image: %s",SDL_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+      }
+
+      texture = SDL_CreateTextureFromSurface(renderer ,picture);
+      SDL_FreeSurface(picture);
+
+      // En cas d’erreur
+      if(texture == NULL){
+          printf("Erreur pour texture: %s",SDL_GetError());
+          SDL_Quit();
+          return EXIT_FAILURE;
+      }
+
+      if(SDL_QueryTexture(texture, NULL, NULL, &des_rect.w, &des_rect.h) != 0){
+        printf("Erreur pour SDL_QueryTexture: %s",SDL_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+      }
+
+      if(SDL_RenderCopy(renderer, texture, NULL, &des_rect) != 0){
+        printf("Erreur pour SDL_RenderCopy: %s",SDL_GetError());
+        SDL_Quit();
+        return EXIT_FAILURE;
+      }
+
+
+
+
 
     SDL_RenderPresent(renderer);
     SDL_Delay(3000);
-
-    // TODO transparence
-    /*****************************************************************/
+    //clean_ressources(window, renderer, texture);
 
 
-
-    return 0;
+    return EXIT_SUCCESS;
 }
