@@ -4,7 +4,7 @@
 Input input;
 
 
-int main(int argc, char *argv[])
+int main()
 {
 unsigned int frameLimit = SDL_GetTicks() + 16;
 int go;

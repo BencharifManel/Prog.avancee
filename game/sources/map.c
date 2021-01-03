@@ -1,6 +1,4 @@
-#include "../headers/map.h"
-#include "../headers/draw.h"
-
+#include "../headers/prototypes.h"
 
 
 Map map;
@@ -225,7 +223,6 @@ void updatePlayer(Input *input){
       if (player.x >= 52){
 
         player.x -= PLAYER_SPEED;
-        printf("player.x = %d -> left\n", player.x);
         player.direction = LEFT;
 
         if (player.etat != WALK && player.onGround == 1){
@@ -254,7 +251,6 @@ void updatePlayer(Input *input){
     if (input->right == 1){
         if (player.x <= 716){
           player.x += PLAYER_SPEED;
-          printf("player.x = %d -> right\n", player.x);
           player.direction = RIGHT;
 
           if (player.etat != WALK && player.onGround == 1){
@@ -282,7 +278,6 @@ void updatePlayer(Input *input){
     if (input->down == 1){
       if ((player.y != 450) && !(player.x < 560 && player.y == 64) && !(player.x > 208 && player.y == 256)){
         player.y += 1;
-        printf("player.y = %d -> down\n", player.y);
         player.direction = LEFT;
 
         if (player.etat != WALK && player.onGround == 1){
@@ -290,9 +285,6 @@ void updatePlayer(Input *input){
             player.frameNumber = 1;
             player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
             player.frameMax = 2;
-        }
-        if (player.y == 256){
-          input->down == 0;
         }
       }
     }

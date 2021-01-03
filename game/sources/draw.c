@@ -1,6 +1,4 @@
-#include "../headers/draw.h"
-#include "../headers/init.h"
-
+#include "../headers/prototypes.h"
 
 
 void drawGame(void){

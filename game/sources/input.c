@@ -1,4 +1,4 @@
-#include "../headers/input.h"
+#include "../headers/prototypes.h"
 
 
 void getInput(Input *input){

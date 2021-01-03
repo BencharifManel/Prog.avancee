@@ -1,5 +1,5 @@
-#include "../headers/init.h"
-#include "../headers/map.h"
+#include "../headers/prototypes.h"
+
 
 SDL_Window *screen;
 SDL_Renderer *renderer;
