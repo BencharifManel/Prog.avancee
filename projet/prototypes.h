@@ -33,15 +33,15 @@ extern int getStartX(void);
 extern int getStartY(void);
 extern void init(char *);
 extern void initializePlayer(void);
-extern void initMaps(void);
-extern void initPlayerSprites(void);
-extern void loadGame(void);
+extern void initMaps(Map map2);
+extern void initPlayerSprites(Map map2, GameObject player2);
+extern void loadGame(Map map2, GameObject player2);
 extern SDL_Texture *loadImage(char *name);
 extern void loadMap(char *name);
 extern void setNombreDeVies(int valeur);
 extern void setNombreDetoiles(int valeur);
 extern void setStartX(int valeur);
 extern void setStartY(int valeur);
-extern void updatePlayer(Input *input);
+extern void updatePlayer(Input *input, Map map2);
 
 #endif

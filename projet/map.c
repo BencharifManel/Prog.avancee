@@ -4,10 +4,10 @@
 Map map;
 
 
-void initMaps(void){
+void initMaps(Map map2){
     // Charge le background
     map.background = loadImage("sprites/background.png");
-
+    map2 = map;
 }
 
 
@@ -17,7 +17,7 @@ SDL_Texture *getBackground(void){
 
 
 void loadMap(char *name){
-    //On ouvre le fichier et vérifie qu'il est non NULL
+    //On ouvre le fichier et vï¿½rifie qu'il est non NULL
     FILE * pFile;
     int c;
     pFile=fopen (name,"r");
@@ -44,16 +44,15 @@ void loadMap(char *name){
     }
 }
 
-
 void drawMap(){
     int dstx = 0;
     int dsty = 0;
     int srcx = 0;
     int srcy = 0;
-    for(int i = 0; i < 9; i++){
+    for(int i = 0; i < 9; i++) {
         dstx = 0;
-        for(int j = 0; j < 13 ; j++){
-            if (map.tile[i][j] == '0'){
+        for(int j = 0; j < 13 ; j++) {
+            if (map.tile[i][j] == '0') {
                 srcx = TILE_SIZE * 0;
                 drawTile(map.tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
@@ -97,13 +96,13 @@ void changeLevel(void){
 
 
 void cleanMaps(void){
-    // Libère la texture du background
+    // Libï¿½re la texture du background
     if (map.background != NULL){
         SDL_DestroyTexture(map.background);
         map.background = NULL;
     }
 
-    // Libère les textures des tilesets
+    // Libï¿½re les textures des tilesets
     if (map.tileSet != NULL){
         SDL_DestroyTexture(map.tileSet);
         map.tileSet = NULL;

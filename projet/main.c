@@ -1,46 +1,50 @@
 #include "prototypes.h"
 
-/* Déclaration des variables / structures utilisées par le jeu */
+/* Dï¿½claration des variables / structures utilisï¿½es par le jeu */
 Input input;
 
 
 int main(int argc, char *argv[])
 {
-unsigned int frameLimit = SDL_GetTicks() + 16;
-int go;
+  GameObject player;
+  Map map;
 
-// Initialisation de la SDL
-init("Jeu");
 
-// Chargement des ressources (graphismes, sons)
-loadGame();
+  unsigned int frameLimit = SDL_GetTicks() + 16;
+  int go;
 
-/* On initialise le joueur */
-initializePlayer();
+  // Initialisation de la SDL
+  init("Jeu");
 
-// Appelle la fonction cleanup à la fin du programme
-atexit(cleanup);
+  // Chargement des ressources (graphismes, sons)
+  loadGame(map, player);
 
-go = 1;
+  /* On initialise le joueur */
+  initializePlayer();
 
-// Boucle infinie, principale, du jeu
-while (go == 1)
-{
-//Gestion des inputs clavier
-getInput(&input);
+  // Appelle la fonction cleanup ï¿½ la fin du programme
+  atexit(cleanup);
 
-// On met à jour le jeu, en commençant par le joueur
-updatePlayer(&input);
+  go = 1;
 
-//On dessine tout
-drawGame();
+  // Boucle infinie, principale, du jeu
+  while (go == 1)
+  {
+    //Gestion des inputs clavier
+    getInput(&input);
 
-// Gestion des 60 fps (1000ms/60 = 16.6 -> 16
-delay(frameLimit);
-frameLimit = SDL_GetTicks() + 16;
-}
+    // On met ï¿½ jour le jeu, en commenï¿½ant par le joueur
+    updatePlayer(&input, map);
 
-// On quitte
-exit(0);
+    //On dessine tout
+    drawGame();
+
+    // Gestion des 60 fps (1000ms/60 = 16.6 -> 16
+    delay(frameLimit);
+    frameLimit = SDL_GetTicks() + 16;
+  }
+
+  // On quitte
+  exit(0);
 
 }
