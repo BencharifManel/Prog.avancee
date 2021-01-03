@@ -45,6 +45,20 @@ void loadMap(char *name){
     }
 }
 
+void saveScore(char *name){
+    //On ouvre le fichier et verifie qu'il est non NULL
+    FILE * pFile;
+    int c;
+    pFile=fopen (name,"w+");
+    if (pFile==NULL){
+        perror ("Error opening file");
+    }
+    //Si le fichier est non NULL
+    else {
+        fprintf(pFile, "%i", player.score);
+        fclose (pFile);
+    }
+}
 
 void drawMap(){
     int dstx = 0;
@@ -196,7 +210,9 @@ void initializePlayer(void){
     player.w = PLAYER_WIDTH;
     player.h = PLAYER_HEIGTH;
 
-    //On consider que le joueur est sur le sol
+    //On considere le joueur vivant
+    player.alive = 1;
+    //On consider que le joueur n'est pas sur le sol
     player.timerSaut = 0;
     player.onGround = 0;
 
@@ -315,6 +331,8 @@ void updatePlayer(Input *input){
         }
         player.timerSaut = JUMP_TIMER;
     }
+
+    //Pour les rcompenses (cerises)
     if(map.tile[y2][x1] == '5'){
         map.tile[y2][x1] = '-';
         player.score += 10;
@@ -329,7 +347,17 @@ void updatePlayer(Input *input){
         player.score += 10;
     }
 
+    //Pour l'arriv�e
     if(map.tile[y1][x1] == '6'){
+        saveScore("../score/score.txt");
         exit(0);
     }
+
+    //Pour la mort
+    if(y2*TILE_SIZE > SCREEN_HEIGHT){
+        player.alive = 0;
+        saveScore("../score/score.txt");
+        exit(0);
+    }
+
 }

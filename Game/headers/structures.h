@@ -40,8 +40,9 @@ typedef struct GameObject{
     // etat : IDLE, WALK etc...
     int etat, direction;
 
-
-    //s'il est sur le sol/mort
+    //s'il est vivant/mort
+    int alive;
+    //s'il est sur le sol
     int onGround, timerSaut;
     //Vecteurs de déplacement temporaires (pour collision)
     float dirX, dirY;
