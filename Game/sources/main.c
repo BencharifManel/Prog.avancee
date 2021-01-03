@@ -1,6 +1,6 @@
 #include "../headers/prototypes.h"
 
-/* Déclaration des variables / structures utilisées par le jeu */
+/* Dï¿½claration des variables / structures utilisï¿½es par le jeu */
 Input input;
 
 
@@ -18,7 +18,7 @@ loadGame();
 /* On initialise le joueur */
 initializePlayer();
 
-// Appelle la fonction cleanup à la fin du programme
+// Appelle la fonction cleanup ï¿½ la fin du programme
 atexit(cleanup);
 
 go = 1;
@@ -29,7 +29,7 @@ while (go == 1)
     //Gestion des inputs clavier
     getInput(&input);
 
-    // On met à jour le jeu, en commençant par le joueur
+    // On met ï¿½ jour le jeu, en commenï¿½ant par le joueur
     updatePlayer(&input);
 
     //On dessine tout

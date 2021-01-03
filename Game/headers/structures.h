@@ -1,7 +1,7 @@
 #ifndef STRUCTURES
 #define STRUCTURES
 
-#include "../headers/param.h"
+#include "param.h"
 
 //*** Les structures seront regroupées ici ***
 

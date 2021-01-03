@@ -2,7 +2,7 @@
 
 
 void drawGame(void){
-    // Affiche le background à 0,0
+    // Affiche le background ï¿½ 0,0
     drawImage(getBackground(), 0, 0);
 
     // Affiche la map de tiles
@@ -11,7 +11,7 @@ void drawGame(void){
     // Affiche le joueur
     drawPlayer();
 
-    // Affiche l'écran
+    // Affiche l'ï¿½cran
     SDL_RenderPresent(getrenderer());
 
     SDL_Delay(1);
@@ -29,7 +29,7 @@ SDL_Texture *loadImage(char *name){
         // Conversion de l'image en texture
         texture = SDL_CreateTextureFromSurface(getrenderer(), image);
 
-        // On se débarrasse du pointeur vers une surface
+        // On se dï¿½barrasse du pointeur vers une surface
         SDL_FreeSurface(image);
         image = NULL;
     }else
@@ -51,34 +51,35 @@ void drawImage(SDL_Texture *image, int x, int y){
 
     SDL_Rect dest;
 
-    /* Règle le rectangle à dessiner selon la taille de l'image source */
+    /* Rï¿½gle le rectangle ï¿½ dessiner selon la taille de l'image source */
     dest.x = x;
     dest.y = y;
 
-    /* Dessine l'image entière sur l'écran aux coordonnées x et y */
+    /* Dessine l'image entiï¿½re sur l'ï¿½cran aux coordonnï¿½es x et y */
     SDL_QueryTexture(image, NULL, NULL, &dest.w, &dest.h);
     SDL_RenderCopy(getrenderer(), image, NULL, &dest);
 
 }
 
-void drawTexte(TTF_Font *font, int x, int y, char *text){
+void drawTexte(TTF_Font *font, int x, int y, int w, int h, char *text){
     SDL_Color noir = { 0, 0, 0 };
 
     SDL_Surface* surface = TTF_RenderText_Solid(font, text, noir);
     //printf("FFFFF\n");
 
     SDL_Texture* texture = SDL_CreateTextureFromSurface(getrenderer(), surface);
-    SDL_Rect dst;
-    dst.x = x;
-    dst.y = y;
+    SDL_Rect dst = {x, y, w, h};
     SDL_RenderCopy(getrenderer(), texture, NULL, &dst);
 }
 
 void drawScore(SDL_Renderer *renderer, GameObject *player,TTF_Font *font){
-	char score[20];
+	/*char score[20];
    	sprintf(score, "Score : %d", player->score); // Conversion de l'entier
-    drawTexte(font,0,0,"SCORE");
-
+    drawTexte(font,0,0,100,100,"SCORE");*/
+    char score[20];
+    	drawTexte(font,575,10,125, 37,"Score : ");
+   	sprintf(score, "%d", player->score); // Conversion de l'entier
+    drawTexte(font,700,10,37,37,score);
 }
 
 void delay(unsigned int frameLimit){
@@ -98,7 +99,7 @@ void delay(unsigned int frameLimit){
 
 
 void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy){
-    //Rectangle de destination à dessiner
+    //Rectangle de destination ï¿½ dessiner
     SDL_Rect dest;
 
     dest.x = destx;
@@ -114,7 +115,6 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy){
     src.w = TILE_SIZE;
     src.h = TILE_SIZE;
 
-    /* Dessine la tile choisie sur l'écran aux coordonnées x et y */
+    /* Dessine la tile choisie sur l'ï¿½cran aux coordonnï¿½es x et y */
     SDL_RenderCopy(getrenderer(), image, &src, &dest);
 }
-

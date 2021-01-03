@@ -96,8 +96,9 @@ void drawMap(){
         }
         dsty += TILE_SIZE;
     }
-    TTF_Font *font = loadFont("../polices/arial.ttf", 30);
+    TTF_Font *font = loadFont("../polices/score.ttf", 40);
     drawScore(getrenderer(), &player,font);
+    TTF_CloseFont(font);
 }
 
 
