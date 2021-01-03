@@ -33,5 +33,5 @@ Saisir la commande suivante :
                                                                    ./main
 Principe & fonctionnement du jeu : 
 
-Pour jouer, on se déplace avec les touches flèche gauche et flèche droite pour se déplacer à gauche et à droite, la touche Espace ou permet de sauter.
+Pour jouer, on se déplace avec les touches flèche-gauche et flèche-droite pour se déplacer à gauche et à droite, la touche Espace ou flèche-haut permet de sauter.
 Le but est de parcourir la carte en collectant des fruits (cerises) et d’arriver à la porte de destination.
