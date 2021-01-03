@@ -2,8 +2,8 @@
 
 Les binômes : BENCHARIF Manel , PLANQUE Manon.
 
-Installation, Compilation & Exécution
-a / Installation :
+Mise en place, Compilation & Exécution
+a / Mise en place :
 Télécharger le fichier methodo.zip
 L’extraire, on trouvera : - Le jeu (qui se trouve dans le dossier jeu final)
 - La vidéo démonstrative
