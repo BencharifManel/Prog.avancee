@@ -19,9 +19,9 @@ int main(int argc, char *argv[])
   /* On initialise le joueur */
   initializePlayer(&player);
 
-  // Appelle la fonction cleanup � la fin du programme
+  // Appelle la fonction cleanup � la fin du programme TODO
   //atexit(cleanup);
-  atexit(cleanup(&map));
+  //atexit(cleanup(&map));
 
   go = 1;
 

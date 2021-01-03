@@ -17,7 +17,7 @@ extern void drawImage(SDL_Texture *, int, int);
 extern void drawMap(Map map);
 extern void drawPlayer(GameObject *player);
 extern void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy);
-extern SDL_Texture *getBackground(Map map);
+extern SDL_Texture *getBackground(Map *map);
 extern int getBeginX(void);
 extern int getBeginY(void);
 extern void getInput(Input *input);

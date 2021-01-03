@@ -6,13 +6,11 @@ void initMaps(Map *map){
     map->background = loadImage("sprites/background.png");
 }
 
-
-SDL_Texture *getBackground(Map map){
-    return map.background;
+SDL_Texture *getBackground(Map *map){
+    return map->background;
 }
 
-
-void loadMap(char *name, Map map){
+void loadMap(char *name, Map *map){
     //On ouvre le fichier et v�rifie qu'il est non NULL
     FILE * pFile;
     int c;
@@ -32,7 +30,7 @@ void loadMap(char *name, Map map){
                 j = 0;
                 }
             }else{
-                map.tile[i][j] = c;
+                map->tile[i][j] = c;
                 j ++;
             }
         } while (c != EOF);
@@ -40,7 +38,7 @@ void loadMap(char *name, Map map){
     }
 }
 
-void drawMap(Map map){
+void drawMap(Map *map){
     int dstx = 0;
     int dsty = 0;
     int srcx = 0;
@@ -48,25 +46,25 @@ void drawMap(Map map){
     for(int i = 0; i < 9; i++) {
         dstx = 0;
         for(int j = 0; j < 13 ; j++) {
-            if (map.tile[i][j] == '0') {
+            if (map->tile[i][j] == '0') {
                 srcx = TILE_SIZE * 0;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                drawTile(map->tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '1'){
+            }else if (map->tile[i][j] == '1'){
                 srcx = TILE_SIZE * 1;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                drawTile(map->tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '2'){
+            }else if (map->tile[i][j] == '2'){
                 srcx = TILE_SIZE * 2;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                drawTile(map->tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '3'){
+            }else if (map->tile[i][j] == '3'){
                 srcx = TILE_SIZE * 3;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                drawTile(map->tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '4'){
+            }else if (map->tile[i][j] == '4'){
                 srcx = TILE_SIZE * 4;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                drawTile(map->tileSet, dstx, dsty, srcx, srcy);
                 dstx += TILE_SIZE;
             }else{
                 dstx += TILE_SIZE;
@@ -75,8 +73,6 @@ void drawMap(Map map){
         dsty += TILE_SIZE;
     }
 }
-
-
 
 void changeLevel(Map *map){
 
@@ -89,7 +85,6 @@ void changeLevel(Map *map){
     }
     map->tileSet = loadImage("sprites/tileset.png");
 }
-
 
 void cleanMaps(Map *map){
     // Lib�re la texture du background
