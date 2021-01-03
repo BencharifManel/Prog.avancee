@@ -1,49 +1,51 @@
 #include "prototypes.h"
 
 
-
 int level;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
-
 
 GameObject *getPlayer(void){
     return &player;
 }
 
-
 int getPlayerx(void){
     return player.x;
 }
 
+void gravity(){
+  /*
+  if (player.x == tableau[i] == rien) {
+    do {
+      player.x--;
+    } while (player.x % lignes est sur le sol)
+  }
+  */
+}
 
 int getPlayery(void){
     return player.y;
 }
 
-
 void setPlayerx(int valeur){
     player.x = valeur;
 }
 
-
 void setPlayery(int valeur){
     player.y = valeur;
 }
-
 
 int getLevel(void){
     return level;
 }
 
 //Charge la feuille de sprites du pers
-//au début du jeu
+//au dï¿½but du jeu
 void initPlayerSprites(void){
     playerSpriteSheet = loadImage("sprites/player.png");
 }
 
-
-//Libère le sprite du héros à la fin du jeu
+//Libï¿½re le sprite du hï¿½ros ï¿½ la fin du jeu
 void cleanPlayer(void){
     if (playerSpriteSheet != NULL){
         SDL_DestroyTexture(playerSpriteSheet);
@@ -56,7 +58,7 @@ void initializePlayer(void){
     player.direction = RIGHT;
     player.etat = IDLE;
 
-    //Numéro de la frame où commencer (0 = IDLE)
+    //Numï¿½ro de la frame oï¿½ commencer (0 = IDLE)
     player.frameNumber = 0;
 
     //Valeur de timer (animation)
@@ -65,11 +67,11 @@ void initializePlayer(void){
     //1 frame pour l'animation IDLE
     player.frameMax = 1;
 
-    //Coordonnées de départ
+    //Coordonnï¿½es de dï¿½part
     player.x = 64;
     player.y = 64;
 
-    // Hauteur et largeur de notre héros
+    // Hauteur et largeur de notre hï¿½ros
     player.w = PLAYER_WIDTH;
     player.h = PLAYER_HEIGTH;
 
@@ -79,22 +81,21 @@ void initializePlayer(void){
 }
 
 void drawPlayer(void){
-    // Si compte à rebours arrive à zéro
+    // Si compte ï¿½ rebours arrive ï¿½ zï¿½ro
     if (player.frameTimer <= 0){
         player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
         player.frameNumber++;
 
-        //Pour revenir a la frame de départ
+        //Pour revenir a la frame de dï¿½part
         if (player.frameNumber >= player.frameMax)
             player.frameNumber = 0;
     }
-    //Sinon, on décrémente le compte à rebours
+    //Sinon, on dï¿½crï¿½mente le compte ï¿½ rebours
     else
         player.frameTimer--;
 
 
-
-    //Rectangle de destination à dessiner
+    //Rectangle de destination ï¿½ dessiner
     SDL_Rect dest;
 
     dest.x = player.x;
@@ -111,7 +112,7 @@ void drawPlayer(void){
 
     src.y = player.etat * player.h;
 
-    //Gestion du flip (retournement de l'image selon que le sprite regarde à droite ou à gauche
+    //Gestion du flip (retournement de l'image selon que le sprite regarde ï¿½ droite ou ï¿½ gauche
     if (player.direction == LEFT)
         SDL_RenderCopyEx(getrenderer(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else
@@ -119,14 +120,12 @@ void drawPlayer(void){
 }
 
 
-
-
 void updatePlayer(Input *input){
     player.onGround = 1;
     player.y = 64;
 
 
-    //Si on détecte un appui sur la touche fléchée gauche
+    //Si on dï¿½tecte un appui sur la touche flï¿½chï¿½e gauche
     if (input->left == 1){
         player.x -= PLAYER_SPEED;
         player.direction = LEFT;
@@ -140,7 +139,7 @@ void updatePlayer(Input *input){
     }
 
 
-    //Si on détecte un appui sur la touche fléchée droite
+    //Si on dï¿½tecte un appui sur la touche flï¿½chï¿½e droite
     else if (input->right == 1){
         player.x += PLAYER_SPEED;
         player.direction = RIGHT;
