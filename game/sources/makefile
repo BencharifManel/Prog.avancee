@@ -2,9 +2,9 @@ CC = gcc
 CFLAGS = -W -Wall -ansi -std=c99 -g
 LIBS = -L./SDL2_ttf/.libs
 LDFLAGS = `sdl2-config --cflags --libs` -lSDL2_ttf -lSDL2_image
-INCLUDES = prototypes.h structures.h param.h -I./SDL2_ttf -lSDL2_image
+INCLUDES = ../headers/structures.h ../headers/param.h ../headers/init.h ../headers/input.h ../headers/draw.h ../headers/map.h -I./SDL2_ttf -lSDL2_image
 EXEC = main
-SRC = main.c init.c input.c draw.c map.c player.c
+SRC = main.c init.c input.c draw.c map.c
 OBJ = $(SRC:.c=.o)
 
 all: $(EXEC)

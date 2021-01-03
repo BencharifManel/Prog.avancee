@@ -1,5 +1,5 @@
-#include "prototypes.h"
-
+#include "../headers/init.h"
+#include "../headers/map.h"
 
 SDL_Window *screen;
 SDL_Renderer *renderer;
@@ -11,7 +11,7 @@ SDL_Renderer *getrenderer(void){
 
 
 void init(char *title){
-    //Création de la fenêtre
+    //Crï¿½ation de la fenï¿½tre
 
     screen = SDL_CreateWindow(title,
                                   SDL_WINDOWPOS_CENTERED,
@@ -19,12 +19,12 @@ void init(char *title){
                                   SCREEN_WIDTH, SCREEN_HEIGHT,
                                   SDL_WINDOW_SHOWN);
 
-    //Création du renderer
+    //Crï¿½ation du renderer
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_PRESENTVSYNC);
 
     // Si erreur
     if (screen == NULL || renderer == NULL){
-        printf("ERROR : création de la fenêtre ou du renderer\n");
+        printf("ERROR : crï¿½ation de la fenï¿½tre ou du renderer\n");
         exit(1);
     }
 
@@ -35,22 +35,22 @@ void init(char *title){
         exit(1);
     }
 
-    //Pour faire disparaitre le curseur de l'écran
+    //Pour faire disparaitre le curseur de l'ï¿½cran
     SDL_ShowCursor(SDL_DISABLE);
 }
 
 
 
 void cleanup(){
-    //On libère la mémoire
+    //On libï¿½re la mï¿½moire
 
     //Sprites de la map
         cleanMaps();
 
-    //Sprite du héros
+    //Sprite du hï¿½ros
     cleanPlayer();
 
-    //Fenêtre et renderer
+    //Fenï¿½tre et renderer
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
     SDL_DestroyWindow(screen);

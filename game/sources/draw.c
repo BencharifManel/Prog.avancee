@@ -1,8 +1,10 @@
-#include "prototypes.h"
+#include "../headers/draw.h"
+#include "../headers/init.h"
+
 
 
 void drawGame(void){
-    // Affiche le background à 0,0
+    // Affiche le background ï¿½ 0,0
     drawImage(getBackground(), 0, 0);
 
     // Affiche la map de tiles
@@ -11,13 +13,11 @@ void drawGame(void){
     // Affiche le joueur
     drawPlayer();
 
-    // Affiche l'écran
+    // Affiche l'ï¿½cran
     SDL_RenderPresent(getrenderer());
 
     SDL_Delay(1);
 }
-
-
 
 SDL_Texture *loadImage(char *name){
     /* Charge les images dans SDL_Surface */
@@ -29,7 +29,7 @@ SDL_Texture *loadImage(char *name){
         // Conversion de l'image en texture
         texture = SDL_CreateTextureFromSurface(getrenderer(), image);
 
-        // On se débarrasse du pointeur vers une surface
+        // On se dï¿½barrasse du pointeur vers une surface
         SDL_FreeSurface(image);
         image = NULL;
     }else
@@ -44,11 +44,11 @@ void drawImage(SDL_Texture *image, int x, int y){
 
     SDL_Rect dest;
 
-    /* Règle le rectangle à dessiner selon la taille de l'image source */
+    /* Rï¿½gle le rectangle ï¿½ dessiner selon la taille de l'image source */
     dest.x = x;
     dest.y = y;
 
-    /* Dessine l'image entière sur l'écran aux coordonnées x et y */
+    /* Dessine l'image entiï¿½re sur l'ï¿½cran aux coordonnï¿½es x et y */
     SDL_QueryTexture(image, NULL, NULL, &dest.w, &dest.h);
     SDL_RenderCopy(getrenderer(), image, NULL, &dest);
 
@@ -73,7 +73,7 @@ void delay(unsigned int frameLimit){
 
 
 void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy){
-    //Rectangle de destination à dessiner
+    //Rectangle de destination ï¿½ dessiner
     SDL_Rect dest;
 
     dest.x = destx;
@@ -89,7 +89,6 @@ void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy){
     src.w = TILE_SIZE;
     src.h = TILE_SIZE;
 
-    /* Dessine la tile choisie sur l'écran aux coordonnées x et y */
+    /* Dessine la tile choisie sur l'ï¿½cran aux coordonnï¿½es x et y */
     SDL_RenderCopy(getrenderer(), image, &src, &dest);
 }
-

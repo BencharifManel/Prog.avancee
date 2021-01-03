@@ -1,23 +1,21 @@
-#include "prototypes.h"
+#include "../headers/map.h"
+#include "../headers/draw.h"
+
 
 
 Map map;
 int level;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
-int kaka = 0;
 
 void initMaps(void){
     // Charge le background
-    map.background = loadImage("sprites/background.png");
-
+    map.background = loadImage("../sprites/background.png");
 }
-
 
 SDL_Texture *getBackground(void){
     return map.background;
 }
-
 
 void loadMap(char *name){
     //On ouvre le fichier et v�rifie qu'il est non NULL
@@ -46,7 +44,6 @@ void loadMap(char *name){
                     fclose (pFile);
     }
 }
-
 
 void drawMap(){
     int dstx = 0;
@@ -89,15 +86,14 @@ void drawMap(){
 void changeLevel(void){
 
     //Chargement de la map depuis le fichier
-    loadMap("map/map1.txt");
+    loadMap("../map/map1.txt");
 
     //Chargement du tileset
     if (map.tileSet != NULL){
         SDL_DestroyTexture(map.tileSet);
     }
-    map.tileSet = loadImage("sprites/tileset.png");
+    map.tileSet = loadImage("../sprites/tileset.png");
 }
-
 
 void cleanMaps(void){
     // Lib�re la texture du background
@@ -122,21 +118,17 @@ int getPlayerx(void){
     return player.x;
 }
 
-
 int getPlayery(void){
     return player.y;
 }
-
 
 void setPlayerx(int valeur){
     player.x = valeur;
 }
 
-
 void setPlayery(int valeur){
     player.y = valeur;
 }
-
 
 int getLevel(void){
     return level;
@@ -145,9 +137,8 @@ int getLevel(void){
 //Charge la feuille de sprites du pers
 //au d�but du jeu
 void initPlayerSprites(void){
-    playerSpriteSheet = loadImage("sprites/player.png");
+    playerSpriteSheet = loadImage("../sprites/player.png");
 }
-
 
 //Lib�re le sprite du h�ros � la fin du jeu
 void cleanPlayer(void){
@@ -198,8 +189,6 @@ void drawPlayer(void){
     else
         player.frameTimer--;
 
-
-
     //Rectangle de destination � dessiner
     SDL_Rect dest;
 
@@ -224,82 +213,15 @@ void drawPlayer(void){
         SDL_RenderCopyEx(getrenderer(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_NONE);
 }
 
-
-
-
 void updatePlayer(Input *input){
     player.onGround = 1;
     //player.y = 64;
     if ((player.y != 450) && !(player.x < 560 && player.y == 64) && !(player.x > 208 && player.y == 256)){
         player.y += 1;
     }
-    //Debut TEST de l'entourage
-          //a gauche
-          /*
-          if (map.tile[(player.x - 64)/64][player.y/64] == '0'){
-                printf("il y a mur a gauche\n");
-          }else if (map.tile[(player.x - 64)/64][player.y/64] == '1'){
-                printf("il y a 7chich a gauche\n");
-          }else if (map.tile[(player.x - 64)/64][player.y/64] == '2'){
-                printf("il y a eau a gauche\n");
-          }else if (map.tile[(player.x - 64)/64][player.y/64] == '3'){
-                printf("il y a nuage a gauche\n");
-          }else if (map.tile[(player.x - 64)/64][player.y/64] == '4'){
-                printf("il y a plante a gauche\n");
-          }else {
-                printf("il y a vide a gauche\n");//HADI
-          }
-
-          //a droite
-          if (map.tile[(player.x + 64)/64][player.y/64] == '0'){
-                printf("il y a mur a droite\n");
-          }else if (map.tile[(player.x + 64)/64][player.y/64] == '1'){
-                printf("il y a 7chich a droite\n");//HADI
-          }else if (map.tile[(player.x + 64)/64][player.y/64] == '2'){
-                printf("il y a eau a droite\n");
-          }else if (map.tile[(player.x + 64)/64][player.y/64] == '3'){
-                printf("il y a nuage a droite\n");
-          }else if (map.tile[(player.x + 64)/64][player.y/64] == '4'){
-                printf("il y a plante a droite\n");
-          }else {
-                printf("il y a vide a droite\n");
-          }
-
-          //en haut
-          if (map.tile[player.x/64][(player.x - 64)/64] == '0'){
-                printf("il y a mur a haut\n");//HADI
-          }else if (map.tile[player.x/64][(player.x - 64)/64] == '1'){
-                printf("il y a 7chich a haut\n");
-          }else if (map.tile[player.x/64][(player.x - 64)/64] == '2'){
-                printf("il y a eau a haut\n");
-          }else if (map.tile[player.x/64][(player.x - 64)/64] == '3'){
-                printf("il y a nuage a haut\n");
-          }else if (map.tile[player.x/64][(player.x - 64)/64] == '4'){
-                printf("il y a plante a haut\n");
-          }else {
-                printf("il y a vide a haut\n");
-          }
-
-          // en bas
-          if (map.tile[player.x/64][(player.x + 64)/64] == '0'){
-                printf("il y a mur en bas\n");
-          }else if (map.tile[player.x/64][(player.x + 64)/64] == '1'){
-                printf("il y a 7chich en bas\n");
-          }else if (map.tile[player.x/64][(player.x + 64)/64] == '2'){
-                printf("il y a eau en bas\n");
-          }else if (map.tile[player.x/64][(player.x + 64)/64] == '3'){
-                printf("il y a nuage en bas\n");
-          }else if (map.tile[player.x/64][(player.x + 64)/64] == '4'){
-                printf("il y a plante en bas\n");
-          }else {
-                printf("il y a vide en bas\n"); //HADI
-          }
-          */
-        //Fin TEST de l'entourage
 
     //Si on d�tecte un appui sur la touche fl�ch�e gauche
     if (input->left == 1){
-      kaka = 0;
       if (player.x >= 52){
 
         player.x -= PLAYER_SPEED;
@@ -324,13 +246,12 @@ void updatePlayer(Input *input){
             player.y += JUMP_HEIGHT/2;
           } while(player.y <= 450);
           player.y = 450;
-        } //else if ()
+        }
       }
     }
 
     //Si on d�tecte un appui sur la touche fl�ch�e droite
     if (input->right == 1){
-        kaka = 0;
         if (player.x <= 716){
           player.x += PLAYER_SPEED;
           printf("player.x = %d -> right\n", player.x);
@@ -374,7 +295,6 @@ void updatePlayer(Input *input){
           input->down == 0;
         }
       }
-
     }
 
     //Si on n'appuie sur rien et qu'on est sur le sol
@@ -398,31 +318,24 @@ void updatePlayer(Input *input){
     }
 
     if (input->right == 0 && input->left == 1 && input->jump == 1 && player.onGround == 1){
-        if (player.etat != JUMP1 || player.direction != LEFT){
-            player.etat = JUMP1;
-            player.direction = LEFT;
-            player.frameNumber = 0;
-            player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
-            player.frameMax = 1;
-        }
+      if (player.etat != JUMP1 || player.direction != LEFT){
+          player.etat = JUMP1;
+          player.direction = LEFT;
+          player.frameNumber = 0;
+          player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
+          player.frameMax = 1;
+      }
     }
 
     if (input->jump == 1){
         //player.y -= JUMP_HEIGHT;
         player.direction = RIGHT;
-
         if (player.etat != JUMP1 && player.onGround == 1) {
             player.etat = JUMP1;
             player.frameNumber = 2;
 
-            if (kaka < 5){
-              player.y -= 3;
-              kaka++;
-            }
-
             player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
             player.frameMax = 1;
-
         }
     }
 }
