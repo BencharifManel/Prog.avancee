@@ -1,9 +1,9 @@
-#include "structures.h"
+#include "../headers/structures.h"
 
 #ifndef PROTOTYPES
 #define PROTOTYPES
 
-#include "structures.h"
+#include "../headers/structures.h"
 
 //On utilise extern car les fonctions peuvent se trouver dans n'importe quel fichier du projet
 //extern void centerScrollingOnPlayer(void);
@@ -43,5 +43,8 @@ extern void setNombreDetoiles(int valeur);
 extern void setStartX(int valeur);
 extern void setStartY(int valeur);
 extern void updatePlayer(Input *input);
+extern void drawScore(SDL_Renderer *renderer, GameObject *player,TTF_Font *font);
+extern void drawTexte(TTF_Font *font, int x, int y, char *text);
+extern TTF_Font *loadFont(char *name, int font_size);
 
 #endif

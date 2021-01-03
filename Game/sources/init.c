@@ -35,8 +35,12 @@ void init(char *title){
         exit(1);
     }
 
-    //Pour faire disparaitre le curseur de l'écran
-    SDL_ShowCursor(SDL_DISABLE);
+    //On initialise SDL_TTF 2 qui gerera l'ecriture de texte
+	if (TTF_Init() < 0)
+	{
+		printf("ERROR : Impossible d'initialiser SDL TTF\n");
+		exit(1);
+	}
 }
 
 
@@ -45,7 +49,7 @@ void cleanup(){
     //On libère la mémoire
 
     //Sprites de la map
-        cleanMaps();
+    cleanMaps();
 
     //Sprite du héros
     cleanPlayer();
@@ -55,6 +59,9 @@ void cleanup(){
     renderer = NULL;
     SDL_DestroyWindow(screen);
     screen = NULL;
+
+    //On quitte SDL_TTF 2
+	TTF_Quit();
 
     //SDL
     SDL_Quit();

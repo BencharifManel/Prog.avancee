@@ -1,149 +1,9 @@
 #include "../headers/prototypes.h"
 
-
-/*Map map;
-
-
-void initMaps(void){
-    // Charge le background
-    map.background = loadImage("sprites/background.png");
-
-}
-
-
-SDL_Texture *getBackground(void){
-    return map.background;
-}
-
-
-void loadMap(char *name){
-    //On ouvre le fichier et vérifie qu'il est non NULL
-    FILE * pFile;
-    int c;
-    pFile=fopen (name,"r");
-    if (pFile==NULL){
-        perror ("Error opening file");
-    }
-    //Si le fichier est non NULL
-    else {
-        int i = 0; int j = 0;
-        do {
-            //On ouvre et parcourt le fichier
-            c = fgetc (pFile);
-            if ((c == '\n') || (c == '\r')){
-                if (c == '\n'){
-                i ++;
-                j = 0;
-                }
-            }else{
-                map.tile[i][j] = c;
-                j ++;
-            }
-        } while (c != EOF);
-                    fclose (pFile);
-    }
-}
-
-
-void drawMap(){
-    int dstx = 0;
-    int dsty = 0;
-    int srcx = 0;
-    int srcy = 0;
-    for(int i = 0; i < 9; i++){
-        dstx = 0;
-        for(int j = 0; j < 13 ; j++){
-            if (map.tile[i][j] == '0'){
-                srcx = TILE_SIZE * 0;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
-                dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '1'){
-                srcx = TILE_SIZE * 1;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
-                dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '2'){
-                srcx = TILE_SIZE * 2;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
-                dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '3'){
-                srcx = TILE_SIZE * 3;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
-                dstx += TILE_SIZE;
-            }else if (map.tile[i][j] == '4'){
-                srcx = TILE_SIZE * 4;
-                drawTile(map.tileSet, dstx, dsty, srcx, srcy);
-                dstx += TILE_SIZE;
-            }else{
-                dstx += TILE_SIZE;
-            }
-        }
-        dsty += TILE_SIZE;
-    }
-}
-
-
-
-void changeLevel(void){
-
-    //Chargement de la map depuis le fichier
-    loadMap("map/map1.txt");
-
-    //Chargement du tileset
-    if (map.tileSet != NULL){
-        SDL_DestroyTexture(map.tileSet);
-    }
-    map.tileSet = loadImage("sprites/tileset.png");
-}
-
-
-void cleanMaps(void){
-    // Libère la texture du background
-    if (map.background != NULL){
-        SDL_DestroyTexture(map.background);
-        map.background = NULL;
-    }
-
-    // Libère les textures des tilesets
-    if (map.tileSet != NULL){
-        SDL_DestroyTexture(map.tileSet);
-        map.tileSet = NULL;
-    }
-}
-
-void collision(GameObject *entity) {
-    int x1 = (entity->x + entity->dirX) / TILE_SIZE;
-    int x2 = (entity->x + entity->w + entity->dirX) / TILE_SIZE;
-    int y1 = (entity->y + entity->dirY) / TILE_SIZE;
-    int y2 = (entity->y + entity->h + entity->dirY) / TILE_SIZE;
-
-    if(entity->onGround == 0){
-        if(map.tile[x1][y2] == 1)
-            entity->onGround = 1;
-    }
-
-    if((entity->dirY > 0) && (entity->onGround == 0)){
-        if(map.tile[x1][y2] == 1)
-            entity->onGround = 1;
-        else{
-            entity->y += entity->dirY;
-            entity->dirY = 0;
-        }
-
-    }
-
-    if((entity->dirX > 0) && (entity->onGround == 1)){
-        if((map.tile[x2][y1] != 0) && (map.tile[x2][y1] != 1)){
-            entity->x += entity->dirX;
-        }
-        entity->dirX = 0;
-
-    }
-}*/
 Map map;
 int level;
 GameObject player;
 SDL_Texture *playerSpriteSheet;
-int kaka = 0;
 
 void initMaps(void){
     // Charge le background
@@ -158,7 +18,7 @@ SDL_Texture *getBackground(void){
 
 
 void loadMap(char *name){
-    //On ouvre le fichier et v�rifie qu'il est non NULL
+    //On ouvre le fichier et verifie qu'il est non NULL
     FILE * pFile;
     int c;
     pFile=fopen (name,"r");
@@ -225,12 +85,19 @@ void drawMap(){
                     drawTile(map.tileSet, dstx, dsty, srcx, srcy);
                     dstx += TILE_SIZE;
                     break;
+                case '6':
+                    srcx = TILE_SIZE * 6;
+                    drawTile(map.tileSet, dstx, dsty, srcx, srcy);
+                    dstx += TILE_SIZE;
+                    break;
                 default:
                     dstx += TILE_SIZE;
             }
         }
         dsty += TILE_SIZE;
     }
+    TTF_Font *font = loadFont("../polices/arial.ttf", 30);
+    drawScore(getrenderer(), &player,font);
 }
 
 
@@ -249,13 +116,13 @@ void changeLevel(void){
 
 
 void cleanMaps(void){
-    // Lib�re la texture du background
+    // Libere la texture du background
     if (map.background != NULL){
         SDL_DestroyTexture(map.background);
         map.background = NULL;
     }
 
-    // Lib�re les textures des tilesets
+    // Libere les textures des tilesets
     if (map.tileSet != NULL){
         SDL_DestroyTexture(map.tileSet);
         map.tileSet = NULL;
@@ -292,13 +159,13 @@ int getLevel(void){
 }
 
 //Charge la feuille de sprites du pers
-//au d�but du jeu
+//au debut du jeu
 void initPlayerSprites(void){
     playerSpriteSheet = loadImage("../sprites/player.png");
 }
 
 
-//Lib�re le sprite du h�ros � la fin du jeu
+//Libere le sprite du heros a la fin du jeu
 void cleanPlayer(void){
     if (playerSpriteSheet != NULL){
         SDL_DestroyTexture(playerSpriteSheet);
@@ -311,7 +178,7 @@ void initializePlayer(void){
     player.direction = RIGHT;
     player.etat = IDLE;
 
-    //Num�ro de la frame o� commencer (0 = IDLE)
+    //Numero de la frame ou commencer (0 = IDLE)
     player.frameNumber = 0;
 
     //Valeur de timer (animation)
@@ -320,36 +187,39 @@ void initializePlayer(void){
     //1 frame pour l'animation IDLE
     player.frameMax = 1;
 
-    //Coordonn�es de d�part
+    //Coordonnees de depart
     player.x = 64;
     player.y = -64;
 
-    // Hauteur et largeur de notre h�ros
+    // Hauteur et largeur de notre heros
     player.w = PLAYER_WIDTH;
     player.h = PLAYER_HEIGTH;
 
-    //On consider le joueur vivant et pas sur le sol
+    //On consider que le joueur est sur le sol
     player.timerSaut = 0;
     player.onGround = 0;
+
+    //Le score est � z�ro
+    player.score = 0;
 }
 
 void drawPlayer(void){
-    // Si compte � rebours arrive � z�ro
+    // Si compte a rebours arrive a zero
     if (player.frameTimer <= 0){
         player.frameTimer = TIME_BETWEEN_2_FRAMES_PLAYER;
         player.frameNumber++;
 
-        //Pour revenir a la frame de d�part
+        //Pour revenir a la frame de depart
         if (player.frameNumber >= player.frameMax)
             player.frameNumber = 0;
     }
-    //Sinon, on d�cr�mente le compte � rebours
+    //Sinon, on decremente le compte a rebours
     else
         player.frameTimer--;
 
 
 
-    //Rectangle de destination � dessiner
+    //Rectangle de destination a dessiner
     SDL_Rect dest;
 
     dest.x = player.x;
@@ -366,7 +236,7 @@ void drawPlayer(void){
 
     src.y = player.etat * player.h;
 
-    //Gestion du flip (retournement de l'image selon que le sprite regarde � droite ou � gauche
+    //Gestion du flip (retournement de l'image selon que le sprite regarde a droite ou a gauche
     if (player.direction == LEFT)
         SDL_RenderCopyEx(getrenderer(), playerSpriteSheet, &src, &dest, 0, 0, SDL_FLIP_HORIZONTAL);
     else
@@ -379,7 +249,6 @@ void updatePlayer(Input *input){
     int y1 = (player.y) / TILE_SIZE;
     int y2 = (player.y + player.h) / TILE_SIZE;
     player.onGround = 0;
-    //player.y = 64;
     if(player.onGround == 0){
         if ((map.tile[y2][x1] == '1')||(map.tile[y2][x2] == '1')||(map.tile[y2][x1] == '0')||(map.tile[y2][x2] == '0')){
             player.onGround = 1;
@@ -387,7 +256,7 @@ void updatePlayer(Input *input){
             player.y += 4;
     }
 
-    //Si on d�tecte un appui sur la touche fl�ch�e gauche
+    //Si on detecte un appui sur la touche fleche gauche
     if (input->left == 1){
 
         if ((map.tile[y2][x1] != '0')&&(map.tile[y2][x1] != '0')) {
@@ -403,7 +272,7 @@ void updatePlayer(Input *input){
         }
     }
 
-    //Si on d�tecte un appui sur la touche fl�ch�e droite
+    //Si on detecte un appui sur la touche fleche droite
     if (input->right == 1){
         if ((map.tile[y2][x2] != '0')&&(map.tile[y2][x2] != '0')) {
           player.x += PLAYER_SPEED;
@@ -447,11 +316,19 @@ void updatePlayer(Input *input){
     }
     if(map.tile[y2][x1] == '5'){
         map.tile[y2][x1] = '-';
+        player.score += 10;
     }else if(map.tile[y2][x2] == '5'){
         map.tile[y2][x2] = '-';
+        player.score += 10;
     }else if(map.tile[y1][x1] == '5'){
         map.tile[y1][x1] = '-';
+        player.score += 10;
     }else if(map.tile[y1][x2] == '5'){
         map.tile[y1][x2] = '-';
+        player.score += 10;
+    }
+
+    if(map.tile[y1][x1] == '6'){
+        exit(0);
     }
 }

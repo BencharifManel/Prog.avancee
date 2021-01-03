@@ -1,7 +1,7 @@
 #ifndef STRUCTURES
 #define STRUCTURES
 
-#include "param.h"
+#include "../headers/param.h"
 
 //*** Les structures seront regroupées ici ***
 
@@ -45,6 +45,9 @@ typedef struct GameObject{
     int onGround, timerSaut;
     //Vecteurs de déplacement temporaires (pour collision)
     float dirX, dirY;
+
+    //Pour le score
+    int score;
 
 } GameObject;
 

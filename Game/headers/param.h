@@ -11,8 +11,6 @@
 #include <SDL2/SDL_image.h>
 //Pour les textes
 #include <SDL2/SDL_ttf.h>
-//Pour les musiques
-//#include <SDL2/SDL_mixer.h>
 
 //Paramètres fenêtre
 #define SCREEN_WIDTH 832

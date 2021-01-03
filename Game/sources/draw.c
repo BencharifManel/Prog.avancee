@@ -39,6 +39,13 @@ SDL_Texture *loadImage(char *name){
 
 }
 
+TTF_Font *loadFont(char *name, int font_size){
+    TTF_Font *font = TTF_OpenFont(name, font_size);
+    if(font == NULL){
+        printf("ERROR : chargement font: \n");
+    }
+    return font;
+}
 
 void drawImage(SDL_Texture *image, int x, int y){
 
@@ -54,7 +61,25 @@ void drawImage(SDL_Texture *image, int x, int y){
 
 }
 
+void drawTexte(TTF_Font *font, int x, int y, char *text){
+    SDL_Color noir = { 0, 0, 0 };
 
+    SDL_Surface* surface = TTF_RenderText_Solid(font, text, noir);
+    //printf("FFFFF\n");
+
+    SDL_Texture* texture = SDL_CreateTextureFromSurface(getrenderer(), surface);
+    SDL_Rect dst;
+    dst.x = x;
+    dst.y = y;
+    SDL_RenderCopy(getrenderer(), texture, NULL, &dst);
+}
+
+void drawScore(SDL_Renderer *renderer, GameObject *player,TTF_Font *font){
+	char score[20];
+   	sprintf(score, "Score : %d", player->score); // Conversion de l'entier
+    drawTexte(font,0,0,"SCORE");
+
+}
 
 void delay(unsigned int frameLimit){
     //60 images/seconde
