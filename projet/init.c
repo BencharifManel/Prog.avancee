@@ -41,11 +41,11 @@ void init(char *title){
 
 
 
-void cleanup(){
+void cleanup(Map *map){
     //On lib�re la m�moire
 
     //Sprites de la map
-        cleanMaps();
+    cleanMaps(map);
 
     //Sprite du h�ros
     cleanPlayer();
@@ -61,10 +61,10 @@ void cleanup(){
 }
 
 
-void loadGame(Map map, GameObject player){
+void loadGame(Map *map){
     initMaps(map);
 
-    initPlayerSprites(map, player);
+    initPlayerSprites();
 
-    changeLevel();
+    changeLevel(map);
 }

@@ -2,14 +2,11 @@
 
 /* D�claration des variables / structures utilis�es par le jeu */
 Input input;
-
+GameObject player;
+Map map;
 
 int main(int argc, char *argv[])
 {
-  GameObject player;
-  Map map;
-
-
   unsigned int frameLimit = SDL_GetTicks() + 16;
   int go;
 
@@ -17,13 +14,14 @@ int main(int argc, char *argv[])
   init("Jeu");
 
   // Chargement des ressources (graphismes, sons)
-  loadGame(map, player);
+  loadGame(&map);
 
   /* On initialise le joueur */
-  initializePlayer();
+  initializePlayer(&player);
 
   // Appelle la fonction cleanup � la fin du programme
-  atexit(cleanup);
+  //atexit(cleanup);
+  atexit(cleanup(&map));
 
   go = 1;
 
@@ -34,10 +32,10 @@ int main(int argc, char *argv[])
     getInput(&input);
 
     // On met � jour le jeu, en commen�ant par le joueur
-    updatePlayer(&input, map);
+    updatePlayer(&input, &player, &map);
 
     //On dessine tout
-    drawGame();
+    drawGame(&map, &player);
 
     // Gestion des 60 fps (1000ms/60 = 16.6 -> 16
     delay(frameLimit);

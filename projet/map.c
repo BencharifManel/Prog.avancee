@@ -1,22 +1,18 @@
 #include "prototypes.h"
 
 
-Map map;
-
-
-void initMaps(Map map2){
+void initMaps(Map *map){
     // Charge le background
-    map.background = loadImage("sprites/background.png");
-    map2 = map;
+    map->background = loadImage("sprites/background.png");
 }
 
 
-SDL_Texture *getBackground(void){
+SDL_Texture *getBackground(Map map){
     return map.background;
 }
 
 
-void loadMap(char *name){
+void loadMap(char *name, Map map){
     //On ouvre le fichier et v�rifie qu'il est non NULL
     FILE * pFile;
     int c;
@@ -44,7 +40,7 @@ void loadMap(char *name){
     }
 }
 
-void drawMap(){
+void drawMap(Map map){
     int dstx = 0;
     int dsty = 0;
     int srcx = 0;
@@ -82,29 +78,29 @@ void drawMap(){
 
 
 
-void changeLevel(void){
+void changeLevel(Map *map){
 
     //Chargement de la map depuis le fichier
-    loadMap("map/map1.txt");
+    loadMap("map/map1.txt", map);
 
     //Chargement du tileset
-    if (map.tileSet != NULL){
-        SDL_DestroyTexture(map.tileSet);
+    if (map->tileSet != NULL){
+        SDL_DestroyTexture(map->tileSet);
     }
-    map.tileSet = loadImage("sprites/tileset.png");
+    map->tileSet = loadImage("sprites/tileset.png");
 }
 
 
-void cleanMaps(void){
+void cleanMaps(Map *map){
     // Lib�re la texture du background
-    if (map.background != NULL){
-        SDL_DestroyTexture(map.background);
-        map.background = NULL;
+    if (map->background != NULL){
+        SDL_DestroyTexture(map->background);
+        map->background = NULL;
     }
 
     // Lib�re les textures des tilesets
-    if (map.tileSet != NULL){
-        SDL_DestroyTexture(map.tileSet);
-        map.tileSet = NULL;
+    if (map->tileSet != NULL){
+        SDL_DestroyTexture(map->tileSet);
+        map->tileSet = NULL;
     }
 }
