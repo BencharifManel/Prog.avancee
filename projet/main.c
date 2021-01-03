@@ -27,7 +27,7 @@ go = 1;
 while (go == 1)
 {
 //Gestion des inputs clavier
-gestionInputs(&input);
+getInput(&input);
 
 // On met à jour le jeu, en commençant par le joueur
 updatePlayer(&input);

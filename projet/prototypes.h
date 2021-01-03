@@ -6,7 +6,7 @@
 #include "structures.h"
 
 //On utilise extern car les fonctions peuvent se trouver dans n'importe quel fichier du projet
-extern void centerScrollingOnPlayer(void);
+//extern void centerScrollingOnPlayer(void);
 extern void changeLevel(void);
 extern void cleanMaps(void);
 extern void cleanPlayer(void);
@@ -17,7 +17,6 @@ extern void drawImage(SDL_Texture *, int, int);
 extern void drawMap();
 extern void drawPlayer(void);
 extern void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy);
-extern void gestionInputs(Input *input);
 extern SDL_Texture *getBackground(void);
 extern int getBeginX(void);
 extern int getBeginY(void);
@@ -43,7 +42,6 @@ extern void setNombreDeVies(int valeur);
 extern void setNombreDetoiles(int valeur);
 extern void setStartX(int valeur);
 extern void setStartY(int valeur);
-extern void SetValeurDuNiveau(int valeur);
 extern void updatePlayer(Input *input);
 
 #endif

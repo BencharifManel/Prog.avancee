@@ -1,10 +1,5 @@
 #include "prototypes.h"
 
-//Inutile sans joystick, à supprimer si ça compile
-void gestionInputs(Input *input){
-    getInput(input);
-}
-
 
 void getInput(Input *input){
     SDL_Event event;
@@ -30,7 +25,7 @@ void getInput(Input *input){
                         input->erase = 1;
                     break;
 
-                    case SDLK_c:
+                    case SDLK_SPACE:
                         input->jump = 1;
                     break;
 
@@ -72,7 +67,7 @@ void getInput(Input *input){
                         input->erase = 0;
                     break;
 
-                    case SDLK_c:
+                    case SDLK_SPACE:
                         input->jump = 0;
                     break;
 

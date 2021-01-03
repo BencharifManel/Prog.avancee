@@ -1,41 +1,37 @@
 #include "prototypes.h"
 
 
+void drawGame(void){
+    // Affiche le background à 0,0
+    drawImage(getBackground(), 0, 0);
 
+    // Affiche la map de tiles
+    drawMap();
 
-void drawGame(void)
-{
-// Affiche le fond (background) aux coordonnées (0,0)
-drawImage(getBackground(), 0, 0);
+    // Affiche le joueur
+    drawPlayer();
 
-/* Affiche la map de tiles : layer 2 (couche du fond) */
-drawMap();
+    // Affiche l'écran
+    SDL_RenderPresent(getrenderer());
 
-/* Affiche le joueur */
-drawPlayer();
-
-// Affiche l'écran
-SDL_RenderPresent(getrenderer());
-
-// Délai pour laisser respirer le proc
-SDL_Delay(1);
+    SDL_Delay(1);
 }
 
 
 
 SDL_Texture *loadImage(char *name){
-    /* Charge les images avec SDL Image dans une SDL_Surface */
-    SDL_Surface *loadedImage = NULL;
+    /* Charge les images dans SDL_Surface */
+    SDL_Surface *image = NULL;
     SDL_Texture *texture = NULL;
-    loadedImage = IMG_Load(name);
+    image = IMG_Load(name);
 
-    if (loadedImage != NULL){
+    if (image != NULL){
         // Conversion de l'image en texture
-        texture = SDL_CreateTextureFromSurface(getrenderer(), loadedImage);
+        texture = SDL_CreateTextureFromSurface(getrenderer(), image);
 
         // On se débarrasse du pointeur vers une surface
-        SDL_FreeSurface(loadedImage);
-        loadedImage = NULL;
+        SDL_FreeSurface(image);
+        image = NULL;
     }else
         printf("ERROR : chargement de l'image");
 
@@ -61,28 +57,23 @@ void drawImage(SDL_Texture *image, int x, int y){
 
 
 void delay(unsigned int frameLimit){
-    // Gestion des 60 fps (images/seconde)
+    //60 images/seconde
     unsigned int ticks = SDL_GetTicks();
 
-    if (frameLimit < ticks)
-    {
+    if (frameLimit < ticks){
         return;
     }
 
-    if (frameLimit > ticks + 16)
-    {
+    if (frameLimit > ticks + 16){
         SDL_Delay(16);
-    }
-
-    else
-    {
+    }else{
         SDL_Delay(frameLimit - ticks);
     }
 }
 
 
 void drawTile(SDL_Texture *image, int destx, int desty, int srcx, int srcy){
-    /* Rectangle de destination à dessiner */
+    //Rectangle de destination à dessiner
     SDL_Rect dest;
 
     dest.x = destx;

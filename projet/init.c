@@ -10,9 +10,8 @@ SDL_Renderer *getrenderer(void){
 }
 
 
-void init(char *title)
-{
-    //Crï¿½ation de la fenï¿½tre
+void init(char *title){
+    //Création de la fenêtre
 
     screen = SDL_CreateWindow(title,
                                   SDL_WINDOWPOS_CENTERED,
@@ -20,12 +19,12 @@ void init(char *title)
                                   SCREEN_WIDTH, SCREEN_HEIGHT,
                                   SDL_WINDOW_SHOWN);
 
-    //Crï¿½ation du renderer (SDL_RENDERER_PRESENTVSYNC permet une meilleur qualitï¿½ d'image)
+    //Création du renderer
     renderer = SDL_CreateRenderer(screen, -1, SDL_RENDERER_PRESENTVSYNC);
 
-    // Si on n'y arrive pas, on quitte en enregistrant l'erreur dans stdout.txt
+    // Si erreur
     if (screen == NULL || renderer == NULL){
-        printf("ERROR : crï¿½ation de la fenï¿½tre ou du renderer\n");
+        printf("ERROR : création de la fenêtre ou du renderer\n");
         exit(1);
     }
 
@@ -36,76 +35,36 @@ void init(char *title)
         exit(1);
     }
 
-    //Pour faire disparaitre le curseur de l'ï¿½cran
+    //Pour faire disparaitre le curseur de l'écran
     SDL_ShowCursor(SDL_DISABLE);
-
-    //Initialisation de SDL_ttf, pour les textes
-    if (TTF_Init() < 0){
-        printf("ERROR : initialisation de SDL_ttf\n");
-        exit(1);
-    }
-
-/*
-    //Initialisation de SDL_mixer, pour la musique
-    int flags = MIX_INIT_MP3;
-    int initted = Mix_Init(flags);
-    if ((initted & flags) != flags){
-        printf("ERROR : initialisation de SDL_mixer\n");
-        exit(1);
-    }
-
-    if (Mix_OpenAudio(44100, MIX_DEFAULT_FORMAT, 2, 1024) == -1) {
-        printf("Mix_OpenAudio: %s\n", Mix_GetError());
-        exit(1);
-    }
-
-    //Dï¿½finition du nombre de pistes audios
-    Mix_AllocateChannels(32);
-*/
 }
 
 
 
 void cleanup(){
-    //On libï¿½re la mï¿½moire
+    //On libère la mémoire
 
     //Sprites de la map
         cleanMaps();
 
-    //NOUVEAU : Libï¿½re le sprite du hï¿½ros
+    //Sprite du héros
     cleanPlayer();
 
-  /*  //SDL_mixer
-    Mix_CloseAudio();
-    Mix_Quit();*/
-
-    //Fenï¿½tre et renderer
+    //Fenêtre et renderer
     SDL_DestroyRenderer(renderer);
     renderer = NULL;
     SDL_DestroyWindow(screen);
     screen = NULL;
-
-    //SDL_ttf
-    TTF_Quit();
 
     //SDL
     SDL_Quit();
 }
 
 
-void loadGame(void)
-{
+void loadGame(void){
+    initMaps();
 
-//On charge les donnï¿½es pour la map
-initMaps();
+    initPlayerSprites();
 
-
-//NOUVEAU : On charge la feuille de sprites (spritesheet) de notre hï¿½ros
-
-initPlayerSprites();
-
-//On commence au premier niveau
-SetValeurDuNiveau(1);
-changeLevel();
-
+    changeLevel();
 }

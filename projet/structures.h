@@ -16,70 +16,35 @@ typedef struct Input{
 typedef struct Map{
 
     SDL_Texture *background;
-    SDL_Texture *tileSet;/*, *tileSetB;*/
+    SDL_Texture *tileSet;
 
-    /* Coordonnées de départ du héros, lorsqu'il commence le niveau */
+    // Coordonnées de départ du héros
     int beginx, beginy;
 
-    /* Coordonnées de début, lorsqu'on doit dessiner la map */
-    int startX, startY;
 
-    /* Coordonnées max de fin de la map */
-    int maxX, maxY;
-
-    /* Tableau à double dimension représentant la map de tiles */
-    char tile[MAX_MAP_Y][MAX_MAP_X];
-
-    //Deuxième couche de tiles
-    //int tile2[MAX_MAP_Y][MAX_MAP_X];
-
-    //Troisième couche de tiles
-    //int tile3[MAX_MAP_Y][MAX_MAP_X];
-
-    /* Timer et numéro du tileset à afficher pour animer la map */
-    int mapTimer, tileSetNumber;
+    // Tableau contenant les infos du fichier
+    char tile[MAP_Y][MAP_X];
 
 } Map;
 
 // Structure pour gérer nos sprites
-typedef struct GameObject
-{
+typedef struct GameObject{
+    // Coordonnées du sprite
+    int x, y;
 
-// Points de vie/santé + chrono d'invicibilité
-int life, invincibleTimer;
+    // Largeur, hauteur du sprite
+    int h, w;
 
-// Coordonnées du sprite
-int x, y;
-
-// Largeur, hauteur du sprite
-int h, w;
-
-// Checkpoint pour le héros (actif ou non)
-int checkpointActif;
-// + coordonnées de respawn (réapparition)
-int respawnX, respawnY;
+    // Pour l'animation
+    int frameNumber, frameTimer, frameMax;
+    // etat : IDLE, WALK etc...
+    int etat, direction;
 
 
-// Variables utiles pour l'animation :
-// Numéro de la frame (= image) en cours + timer
-int frameNumber, frameTimer, frameMax;
-// Nombre max de frames, état du sprite et direction
-// dans laquelle il se déplace (gauche / droite)
-int etat, direction;
-
-
-// Variables utiles pour la gestion des collisions :
-//Est-il sur le sol, chrono une fois mort
-int onGround, timerMort;
-//Vecteurs de déplacement temporaires avant détection
-//des collisions avec la map
-float dirX, dirY;
-//Sauvegarde des coordonnées de départ
-int saveX, saveY;
-
-//Variable pour le double saut
-int jump;
-
+    //s'il est sur le sol/mort
+    int onGround, timerMort;
+    //Vecteurs de déplacement temporaires (pour collision)
+    float dirX, dirY;
 
 } GameObject;
 
